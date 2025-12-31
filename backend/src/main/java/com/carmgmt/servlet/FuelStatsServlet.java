@@ -1,5 +1,7 @@
 package com.carmgmt.servlet;
 
+import com.carmgmt.dto.ApiResponse;
+import com.carmgmt.exception.CarNotFoundException;
 import com.carmgmt.model.FuelStats;
 import com.carmgmt.service.CarService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,7 +45,7 @@ public class FuelStatsServlet extends HttpServlet {
         
         if (carIdParam == null || carIdParam.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            com.carmgmt.dto.ApiResponse<FuelStats> errorResponse = com.carmgmt.dto.ApiResponse.error("carId parameter is required");
+            ApiResponse<FuelStats> errorResponse = ApiResponse.error("carId parameter is required");
             String errorJson = objectMapper.writeValueAsString(errorResponse);
             out.print(errorJson);
             out.flush();
@@ -55,21 +57,21 @@ public class FuelStatsServlet extends HttpServlet {
             FuelStats stats = carService.getFuelStats(carId);
             
             response.setStatus(HttpServletResponse.SC_OK);
-            com.carmgmt.dto.ApiResponse<FuelStats> apiResponse = com.carmgmt.dto.ApiResponse.success("Fuel statistics retrieved successfully", stats);
+            ApiResponse<FuelStats> apiResponse = ApiResponse.success("Fuel statistics retrieved successfully", stats);
             String jsonResponse = objectMapper.writeValueAsString(apiResponse);
             out.print(jsonResponse);
             out.flush();
             
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            com.carmgmt.dto.ApiResponse<FuelStats> errorResponse = com.carmgmt.dto.ApiResponse.error("Invalid carId format: " + carIdParam);
+            ApiResponse<FuelStats> errorResponse = ApiResponse.error("Invalid carId format: " + carIdParam);
             String errorJson = objectMapper.writeValueAsString(errorResponse);
             out.print(errorJson);
             out.flush();
             
-        } catch (IllegalArgumentException e) {
+        } catch (CarNotFoundException e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            com.carmgmt.dto.ApiResponse<FuelStats> errorResponse = com.carmgmt.dto.ApiResponse.error(e.getMessage());
+            ApiResponse<FuelStats> errorResponse = ApiResponse.error(e.getMessage());
             String errorJson = objectMapper.writeValueAsString(errorResponse);
             out.print(errorJson);
             out.flush();

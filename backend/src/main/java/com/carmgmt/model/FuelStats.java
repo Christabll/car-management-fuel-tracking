@@ -1,5 +1,7 @@
 package com.carmgmt.model;
 
+import java.util.Objects;
+
 /**
  * Fuel statistics DTO
  */
@@ -39,6 +41,30 @@ public class FuelStats {
 
     public void setAverageConsumption(Double averageConsumption) {
         this.averageConsumption = averageConsumption;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FuelStats fuelStats = (FuelStats) o;
+        return Objects.equals(totalFuel, fuelStats.totalFuel) &&
+               Objects.equals(totalCost, fuelStats.totalCost) &&
+               Objects.equals(averageConsumption, fuelStats.averageConsumption);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalFuel, totalCost, averageConsumption);
+    }
+
+    @Override
+    public String toString() {
+        return "FuelStats{" +
+               "totalFuel=" + totalFuel +
+               ", totalCost=" + totalCost +
+               ", averageConsumption=" + averageConsumption +
+               '}';
     }
 }
 

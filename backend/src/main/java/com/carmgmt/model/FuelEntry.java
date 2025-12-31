@@ -1,6 +1,7 @@
 package com.carmgmt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Objects;
 
 /**
  * Fuel entry model
@@ -51,6 +52,32 @@ public class FuelEntry {
 
     public void setOdometer(Integer odometer) {
         this.odometer = odometer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FuelEntry fuelEntry = (FuelEntry) o;
+        return Objects.equals(id, fuelEntry.id) &&
+               Objects.equals(liters, fuelEntry.liters) &&
+               Objects.equals(price, fuelEntry.price) &&
+               Objects.equals(odometer, fuelEntry.odometer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, liters, price, odometer);
+    }
+
+    @Override
+    public String toString() {
+        return "FuelEntry{" +
+               "id=" + id +
+               ", liters=" + liters +
+               ", price=" + price +
+               ", odometer=" + odometer +
+               '}';
     }
 }
 

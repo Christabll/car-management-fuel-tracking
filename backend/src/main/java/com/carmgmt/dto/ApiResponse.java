@@ -73,7 +73,7 @@ public class ApiResponse<T> {
     }
 
     public void setErrors(List<String> errors) {
-        this.errors = errors;
+        this.errors = errors == null ? new ArrayList<>() : new ArrayList<>(errors);
     }
 
     public T getData() {
