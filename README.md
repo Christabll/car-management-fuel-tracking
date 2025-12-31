@@ -153,4 +153,3 @@ Average consumption: 6.4 L/100km
 - **Manual servlet registration**: Shows how Spring Boot registers servlets
 - **Pure Java CLI**: No framework dependencies in client module
 - **Proper HTTP semantics**: Correct status codes and error responses
-
